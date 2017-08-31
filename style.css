@@ -17,3 +17,8 @@ input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;}b
 	height: 100vh;
 	width: calc(100% - 500px);
 }
+
+#pano {
+	height: 400px;
+	width: 400px;
+}

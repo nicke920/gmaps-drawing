@@ -116,13 +116,40 @@ function initMap() {
 
 
 	function createThatInfoWindow(marker, infowindow) {
+		console.log('1', marker)
+		console.log('2', infowindow)
 		var contentSection = ('<h4>' + marker.title + '</h4><p>' + marker.coords.lat + marker.coords.lng + '</p>');
 
 		infowindow.setContent(contentSection)
 		infowindow.open(map, marker)
 
-		console.log('1', marker)
-		console.log('2', infowindow)
+		var streetViewService = new google.maps.StreetViewService();
+
+
+		function getTheStreetView(data, status) {
+			if (status === 'OK') {
+				var nearestPano = data.location.pano;
+
+				var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'))
+
+				panorama.setPano(nearestPano)
+				panorama.setPov({
+					heading: 270, 
+					pitch: 0
+				});
+
+				console.log('3', data)
+				console.log('4', status)
+			}
+		}
+
+		streetViewService.getPanoramaByLocation(marker.position, 50, getTheStreetView)
+
+		// var pano = new google.maps.StreetViewPanorama();
+
+		// streetViewService.getPanorama(marker.position)
+
+
 	}
 
 
