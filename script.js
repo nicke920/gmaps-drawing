@@ -69,6 +69,8 @@ function initMap() {
 
 	var markers = [];
 
+	var houseIcon = 'icon.png';
+
 	var locations = [
 	          {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
 	          {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
@@ -93,14 +95,16 @@ function initMap() {
 				position: eachLocation, 
 				map: map, 
 				title: eachTitle,
-				animation: google.maps.Animation.DROP
+				animation: google.maps.Animation.DROP,
+				icon: houseIcon
 			})
 
 			markers.push(marker)
 
 		})
 	}
+
+	//loops through locations array, and spits out a marker for each location. Added animation and custom icons
 	getMarkers();
-	console.log(markers)
 
 }
