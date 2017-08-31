@@ -119,12 +119,9 @@ function initMap() {
 		console.log('1', marker)
 		console.log('2', infowindow)
 		var contentSection = ('<h4>' + marker.title + '</h4><p>' + marker.coords.lat + marker.coords.lng + '</p>');
-
-		infowindow.setContent(contentSection)
-		infowindow.open(map, marker)
+		$('#locationName').text(marker.title)
 
 		var streetViewService = new google.maps.StreetViewService();
-
 
 		function getTheStreetView(data, status) {
 			if (status === 'OK') {
@@ -143,6 +140,10 @@ function initMap() {
 			}
 		}
 
+		infowindow.setContent(contentSection)
+		infowindow.open(map, marker)
+
+		//this is what does it. It gets the location of the marker and searches for anything within a 50m radius, then it performs the getTheStreetView function, which, if ok, get the coords of the nearest pano image, initiates a new StreetViewPanorama class and set it in the id location. Then we just set it!
 		streetViewService.getPanoramaByLocation(marker.position, 50, getTheStreetView)
 
 		// var pano = new google.maps.StreetViewPanorama();
