@@ -71,6 +71,8 @@ function initMap() {
 
 	var houseIcon = 'icon.png';
 
+	var infowindow = new google.maps.InfoWindow;
+
 	var locations = [
 	          {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
 	          {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
@@ -92,7 +94,8 @@ function initMap() {
 			var eachTitle = location.title;
 
 			var marker = new google.maps.Marker({
-				position: eachLocation, 
+				position: eachLocation,
+				coords: eachLocation, 
 				map: map, 
 				title: eachTitle,
 				animation: google.maps.Animation.DROP,
@@ -101,10 +104,28 @@ function initMap() {
 
 			markers.push(marker)
 
+			marker.addListener('click', function() {
+				createThatInfoWindow(this, infowindow)
+			})
+
 		})
 	}
 
 	//loops through locations array, and spits out a marker for each location. Added animation and custom icons
 	getMarkers();
+
+
+	function createThatInfoWindow(marker, infowindow) {
+		var contentSection = ('<h4>' + marker.title + '</h4><p>' + marker.coords.lat + marker.coords.lng + '</p>');
+
+		infowindow.setContent(contentSection)
+		infowindow.open(map, marker)
+
+		console.log('1', marker)
+		console.log('2', infowindow)
+	}
+
+
+
 
 }
